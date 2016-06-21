@@ -1,0 +1,127 @@
+--------------------------------------------------------------------------
+README
+--------------------------------------------------------------------------
+Project 2 : Webcrawler
+Team name - TeamNWGeeks
+Member: Niharika Sharma, Sandarsh Srivastav
+NUID: 001748616, 001649643 
+--------------------------------------------------------------------------
+
+
+FILES AND EXECUTION INST
+--------------------------------------------------------------------------
+Files
+- Source code - webcrawler.py
+- Executable - webcrawler
+- README 
+— Makefile
+- secret_flags
+- Object/Library files - *.so
+
+Execution Instructions :
+- make
+- ./webcrawler [USERNAME] [PASSWORD]
+--------------------------------------------------------------------------
+
+
+OBJECTIVE
+--------------------------------------------------------------------------
+The main goal of this program is to implement a webcrawler which 
+scrapes http://cs5700sp16.ccs.neu.edu/fakebook/ for hyperlinks 
+and further crawls on the pages pointing to the domain 
+cs5700sp16.ccs.neu.edu for more hyperlinks The crawler searches for five 
+flags which are placed randomly on five of the web pages. The programs
+halts its execution after the flags have been found.
+
+Other objectives of this program were to:
+—- Track the Frontier
+—- Avoid loops while crawling
+—- Only crawl the domain cscs5700sp16.ccs.neu.edu
+
+This program is capable of handling - 
+—- HTTP GET messages
+—- HTTP POST messages
+—- Cookies
+—- Response codes 301, 302, 403, 404 and 500
+--------------------------------------------------------------------------
+
+
+APPROACH
+--------------------------------------------------------------------------
+Object oriented approach was used in the designing of this 
+program. We created a class ‘FakebookCrawler’ which implemented 
+the methods and data structures which were required for crawling 
+Fakebook.
+
+The web crawler functions on two important data sets:
+—- Visited Links: [Set]
+	In order to avoid loops in crawling, the crawler
+maintains a set of visited links. Every parsed URL is 
+checked against this list to verify if that link has been crawled
+previously or not.
+
+—- Uncrawled URLs: [Queue]
+	When a crawler is traversing a webpage, this queue is 
+populated with every URL that is found on the web page. Thus
+the crawler makes sure that none of the links are uncrawled.
+When the crawler finishes crawling a particular page, it pops
+the top URL from the queue, verifies if the link was visited
+previously and if not, proceeds to crawl it, else, the link is
+discarded.
+--------------------------------------------------------------------------
+
+
+CHALLENGES
+--------------------------------------------------------------------------
+The challenges faced in this program were-
+
+—-Logging in to Fakebook
+	One of the major challenges was logging into fakebook via the
+program. The response header after the initial GET method required 
+the next POST method and its header to be built on the parameters provided, 
+namely:
+	-csrftoken
+	-sessionid
+It took a careful analysis of the response header using Chrome extension
+to figure out which fields were necessary and the format of those fields.
+After successfully POSTing the login details, the server responded with a
+302 (Moved Temporarily) which required to be handled as well. This phase 
+was the longest in this program’s development.
+
+—-Constructing HTTP headers
+	The above challenge helped us to recognise the headers that were
+important and significant for sending out a GET request. Thus, we
+created a separate function for the creation of header with those fields.
+
+—-Handling response codes / Cookie Management
+	The program required us to implement the handling of 301, 403,
+404 and 500 réponse codes. Cookie management was also required in the 
+objective. This required us to go through various material explaining
+the handing of cookies and also the steps to handle the above response
+codes.
+--------------------------------------------------------------------------
+http://david.choffnes.com/classes/cs4700sp16/project4.phpc
+
+TESTING
+--------------------------------------------------------------------------
+-Tested if the crawler was looping
+	The crawler was tested for loops. Looping results in inefficient 
+crawling and the crawler fails to crawl its frontier. We checked if the 
+crawler was successfully adding the visited links in the designated 
+data structure. We later converted the ‘visited_links’ list to a set 
+which further reduced complexity by having only unique elements
+in the ‘visited_links’ set.
+
+-Response code handling for 301, 302, 403, 404, and 500
+	The server occasionally sent the response codes 301, 403, 404 and 
+500, We implemented the handling for these responses in the program
+itself and kept a watch on how the program behaved when these responses
+were received. We refined the implementation until all the responses
+were handled as required by the problem/objective. 
+
+-Testing command line functionality
+	The command line functionality was tested to include the login and
+password as a compulsory argument passed via the command line. If not 
+passed the programs gives the error “Please check input command”
+--------------------------------------------------------------------------
+

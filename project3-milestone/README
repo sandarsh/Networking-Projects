@@ -1,0 +1,56 @@
+--------------------------------------------------------------------------
+README
+--------------------------------------------------------------------------
+
+MILESTONE 1
+--------------------------------------------------------------------------
+Project 3 : Performance analysis of TCP variants
+Team name - TeamNWGeeks
+Member: Niharika Sharma, Sandarsh Srivastav
+NUID: 001748616, 001649643 
+--------------------------------------------------------------------------
+
+OBJECTIVE and METHODOLOGY
+--------------------------------------------------------------------------
+Experiment 1 - TCP performance under congestion
+  In this experiment, we plan to measure the behaviour of TCP variants
+  TAHOE, RENO, NEW RENO and VEGAS individually by varying the CBR in 
+  increments of 0.25 (or lower) from 1Mbps to 10Mbps. While doing this, we 
+  will record the throughput, latency and the packet drop rate for further 
+  analysis. We also plan on varying the packet size, queue length and
+  latency to observe if any significant differences appear. Through this,
+  we will calculate the average throughput, average latency and total drops
+  for each of the variants. Further testing will be performed on the data
+  recorded to infer if any variant outperforms the others.
+
+Experiment 2 - Fairness between TCP variants
+  In this experiment we are required to keep the topology same as in the 
+  previous experiment and observe two simultaneous TCP streams for
+  fairness. Similar to previous experiments, we intend to vary the bandwidth
+  and measure the average throughput, packet loss rate and latency while 
+  changing the parameters mentioned in Experiment1. We also intend to 
+  vary the starting time of the two TCP streams to gain insight into the
+  how the TCP streams variate when one is started during the other’s
+  slow-start phase, retransmit phase etc. Further testing will then be 
+  performed to see if the variants are fair and if not, why.
+
+Experiment 3 - Influence of queuing
+  In this experiment we are required to measure the influence of queuing 
+  on TCP RENO and SACK while employing DropTail and RED. We will wait for
+  the TCP flow to become steady and then start the CBR. We will vary various
+  parameters like the window size, latency and packet size to compare
+  the results of RENO and SACK.
+--------------------------------------------------------------------------
+
+INTERPRETATION AND FURTHER TESTS
+--------------------------------------------------------------------------
+We will interpret the ns2 trace files by writing a python script
+that works on the data to calculate the required values like average
+throughput, average latency, packet loss/drop rate. We will also use this
+script to extract the values from the trace files and plot graphs on a
+suitable graphing software like MS Excel or GNUplot. To infer if the 
+results obtained from different TCP variants were significantly different
+from each other, we plan on performing a suitable statistical analysis
+(T-Test etc).
+--------------------------------------------------------------------------
+
